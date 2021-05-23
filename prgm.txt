@@ -93,7 +93,7 @@ Disp I
 Disp "EN PS"
 I/1000→I
 Disp I
-Disp "I EN NS"
+Disp "EN NS"
 Pause 
 √((S^2)+(I^2))→W
 Disp "TTOT="
