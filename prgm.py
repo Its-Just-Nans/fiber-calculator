@@ -1,15 +1,15 @@
-# translate by AI
+# translated by AI
 
 import math
 
 # Input values
-E = float(input("EMETTEUR="))
-R = float(input("RECEPT="))
-A = float(input("AttenuationFibre="))
-M = float(input("LongueurFibre="))
-F = float(input("Fibre-Fibre="))
-I = float(input("Emetteur-Fibre="))
-G = float(input("Fibre-Recept="))
+E = float(input("EMETTEUR (mW)="))
+R = float(input("RECEPT (mW)="))
+A = float(input("AttenuationFibre (db/km)="))
+M = float(input("LongueurFibre (m)="))
+F = float(input("Fibre-Fibre (dB)="))
+I = float(input("Emetteur-Fibre (dB)="))
+G = float(input("Fibre-Recept (dB)="))
 
 # Calculate total power
 T = 10 * math.log10(E / R)
@@ -31,18 +31,17 @@ V = T - (I + A + G) - ((A + F) * O)
 print(f"{I}+{A}+{O}*{A+F}+X+{G}={round(T, 3)}")
 print(f"Nombre restant={V}")
 
-P = 0
-
 # Check if there's enough power for additional fiber
 if (V - F) > 0:
     P = ((V - F) * M) / A
-    print(f"metres de fibre en plus ={P}")
+    print(f"metres de fibre en plus = {P}")
 else:
+    P = 0
     print("Nombre restant trop petit")
 
 # Calculate the total length of fiber
 L = M + O * M + P
-print(f"Longueur totale={L}")
+print(f"Longueur totale={L}m")
 
 # Calculate the dispersion parameters
 L /= 1000
@@ -52,9 +51,9 @@ K = R / (L ** Y)
 print(f"BANDE MODAL={K}")
 
 S = 1 / (2 * K)
-print(f"TM={S} EN US")
+print(f"TM={S} µs")
 S *= 1000
-print(f"{S} EN NS")
+print(f"{S} ns")
 
 # Calculate dispersion coefficient
 Z = float(input("DC="))
@@ -62,7 +61,7 @@ J = float(input("GAMMA=")) / 10
 Z *= J * L
 print(f"TC={Z} ps")
 Z /= 1000
-print(f"{Z} ns")
+print(f"TC={Z} ns")
 
 # Calculate total dispersion
 W = math.sqrt(S ** 2 + Z ** 2)
